@@ -19,9 +19,13 @@ function App() {
         >
           <MediaRenderer
             src="https://placehold.co/300x200"
-            alt="Placeholder image"
             style={{ border: '2px solid #007bff', borderRadius: '8px' }}
             className="demo-image"
+            imageProps={{
+              alt: "Placeholder image with imageProps",
+              loading: "lazy",
+              title: "This alt and title come from imageProps"
+            }}
           />
         </div>
 
@@ -36,12 +40,16 @@ function App() {
         >
           <MediaRenderer
             src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            controls
-            autoPlay
-            muted
-            loop
             style={{ width: '100%', maxWidth: '500px', borderRadius: '8px' }}
             className="demo-video"
+            videoProps={{
+              controls: true,
+              autoPlay: true,
+              muted: true,
+              loop: true,
+              preload: "metadata",
+              title: "Big Buck Bunny video with videoProps"
+            }}
           />
         </div>
       </div>

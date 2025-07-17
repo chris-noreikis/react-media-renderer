@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 interface MediaRendererProps extends React.HTMLAttributes<HTMLElement> {
   src: string;
+  imageProps?: React.ImgHTMLAttributes<HTMLImageElement>;
+  videoProps?: React.VideoHTMLAttributes<HTMLVideoElement>;
 }
 
 export enum MediaType {
@@ -9,7 +11,7 @@ export enum MediaType {
   video = 'video',
 }
 
-const MediaRenderer: React.FC<MediaRendererProps> = ({ src, ...props }) => {
+const MediaRenderer: React.FC<MediaRendererProps> = ({ src, imageProps, videoProps, ...props }) => {
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 
   const fetchContentType = async () => {
@@ -31,9 +33,9 @@ const MediaRenderer: React.FC<MediaRendererProps> = ({ src, ...props }) => {
   }, [src]);
 
   if (mediaType === MediaType.image) {
-    return <img src={src} {...props} />;
+    return <img src={src} {...props} {...imageProps} />;
   } else if (mediaType === MediaType.video) {
-    return <video src={src} {...props} />;
+    return <video src={src} {...props} {...videoProps} />;
   }
   return null;
 };

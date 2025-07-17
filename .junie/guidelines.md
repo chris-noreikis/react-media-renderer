@@ -1,3 +1,7 @@
+## Testing Guideslines
+1. Use `jest` to run unit tests
+2. Example command: `npm test -- src/index.test.tsx`
+
 ## Coding Style
 
 1. Focus on new code being as simple as possible.  Do not add features that were not explicitly asked for
