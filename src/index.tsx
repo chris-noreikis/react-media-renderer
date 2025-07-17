@@ -1,36 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { detectMediaType, DetectionStrategy, MediaType } from './detectionStrategies';
+
+export { DetectionStrategy, MediaType } from './detectionStrategies';
 
 interface MediaRendererProps extends React.HTMLAttributes<HTMLElement> {
   src: string;
   imageProps?: React.ImgHTMLAttributes<HTMLImageElement>;
   videoProps?: React.VideoHTMLAttributes<HTMLVideoElement>;
+  detectionStrategy?: DetectionStrategy;
 }
 
-export enum MediaType {
-  image = 'image',
-  video = 'video',
-}
-
-const MediaRenderer: React.FC<MediaRendererProps> = ({ src, imageProps, videoProps, ...props }) => {
+const MediaRenderer: React.FC<MediaRendererProps> = ({ 
+  src, 
+  imageProps, 
+  videoProps, 
+  detectionStrategy = DetectionStrategy.fileExtension,
+  ...props 
+}) => {
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 
-  const fetchContentType = async () => {
-    const response = await fetch(src, { method: 'HEAD' });
-    if (response.ok) {
-      const contentType = response.headers.get('Content-Type');
-      if (contentType?.startsWith('image/')) {
-        setMediaType(MediaType.image);
-      } else if (contentType?.startsWith('video/')) {
-        setMediaType(MediaType.video);
-      } else {
-        console.error('Unsupported media type:', contentType);
-      }
-    }
-  };
-
   useEffect(() => {
-    fetchContentType();
-  }, [src]);
+    const detectAndSetMediaType = async () => {
+      const type = await detectMediaType(src, detectionStrategy);
+      setMediaType(type);
+    };
+
+    detectAndSetMediaType();
+  }, [src, detectionStrategy]);
 
   if (mediaType === MediaType.image) {
     return <img src={src} {...props} {...imageProps} />;

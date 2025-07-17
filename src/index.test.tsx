@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen, waitFor} from '@testing-library/react';
-import MediaRenderer from './index';
+import MediaRenderer, { DetectionStrategy } from './index';
 
 describe('MediaRenderer', () => {
     type SetupArgs = {
@@ -19,7 +19,7 @@ describe('MediaRenderer', () => {
             },
             ok: true,
         });
-        render(<MediaRenderer src={src} {...props} />);
+        render(<MediaRenderer src={src} detectionStrategy={DetectionStrategy.contentType} {...props} />);
     };
 
     const testProps = {
@@ -131,6 +131,42 @@ describe('MediaRenderer', () => {
                     contentType
                 )
             );
+        });
+    });
+
+    describe('integration with detection methods', () => {
+        it('should use file extension detection by default', async () => {
+            const src = 'https://example.com/image.jpg';
+            render(<MediaRenderer src={src} />);
+            expect(await screen.findByRole('img')).toHaveProperty('src', src);
+        });
+
+        it('should use content type detection when explicitly specified', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                headers: {
+                    get: () => 'video/mp4',
+                },
+                ok: true,
+            });
+            render(<MediaRenderer src="https://example.com/media" detectionStrategy={DetectionStrategy.contentType} />);
+            await waitFor(() =>
+                expect(document.querySelector('video')).toBeInTheDocument()
+            );
+        });
+
+        it('should render image when using file extension detection', async () => {
+            const src = 'https://example.com/image.jpg';
+            render(<MediaRenderer src={src} detectionStrategy={DetectionStrategy.fileExtension} />);
+            expect(await screen.findByRole('img')).toHaveProperty('src', src);
+        });
+
+        it('should render video when using file extension detection', async () => {
+            const src = 'https://example.com/video.mp4';
+            render(<MediaRenderer src={src} detectionStrategy={DetectionStrategy.fileExtension} />);
+            await waitFor(() =>
+                expect(document.querySelector('video')).toBeInTheDocument()
+            );
+            expect(document.querySelector('video')).toHaveProperty('src', src);
         });
     });
 });
