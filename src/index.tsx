@@ -5,6 +5,8 @@ interface MediaRendererProps {
 }
 
 const MediaRenderer: React.FC<MediaRendererProps> = ({src}) => {
+    const [media, setMedia] = useState<string>('');
+
     return (<div>foobar</div>);
 };
 

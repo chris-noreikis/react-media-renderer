@@ -1,0 +1,25 @@
+import React from 'react'
+import MediaRenderer from '../src/index'
+
+function App() {
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>React Media Renderer - Development Demo</h1>
+      <div style={{ marginBottom: '30px' }}>
+        <h2>Different Media Sources</h2>
+        
+        <h3>Image Example</h3>
+        <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '4px', marginBottom: '10px' }}>
+            <MediaRenderer src="https://picsum.photos/300/200"/>
+        </div>
+
+        <h3>Video Example</h3>
+        <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '4px', marginBottom: '10px' }}>
+            <MediaRenderer src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"/>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default App
