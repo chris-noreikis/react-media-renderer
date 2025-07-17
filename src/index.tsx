@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { detectMediaType, DetectionStrategy } from './detectionStrategies';
-import { MediaType } from './types';
+import { detectMediaType } from './detectionStrategies';
+import { DetectionStrategy, MediaType } from './types';
 
-interface MediaRendererProps extends React.HTMLAttributes<HTMLElement> {
+export interface MediaRendererProps extends React.HTMLAttributes<HTMLElement> {
   src: string;
   imageProps?: React.ImgHTMLAttributes<HTMLImageElement>;
   videoProps?: React.VideoHTMLAttributes<HTMLVideoElement>;
