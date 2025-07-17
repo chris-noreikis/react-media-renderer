@@ -8,7 +8,7 @@ const getMediaTypeByMethod = async (
 ): Promise<MediaType | null> => {
     if (detectionStrategy === 'fileExtension') {
         return getMediaTypeFromExtension(src);
-    } else if (detectionStrategy === 'contentType') {
+    } else if (detectionStrategy === 'contentTypeHeader') {
         return getMediaTypeFromContentType(src);
     } else {
         throw new Error(`Unknown detection method: ${detectionStrategy}`);

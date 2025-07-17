@@ -46,7 +46,7 @@ describe('detectMediaType', () => {
 
     const result = await detectMediaType(
       'https://example.com/media',
-      "contentType"
+      "contentTypeHeader"
     );
 
     expect(getMediaTypeFromContentType).toHaveBeenCalledWith(

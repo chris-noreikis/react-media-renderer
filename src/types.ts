@@ -1,4 +1,4 @@
-export type DetectionStrategy = 'contentType' | 'fileExtension';
+export type DetectionStrategy = 'contentTypeHeader' | 'fileExtension';
 
 export enum MediaType {
   image = 'image',

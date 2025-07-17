@@ -22,7 +22,7 @@ describe('MediaRenderer', () => {
     render(
       <MediaRenderer
         src={src}
-        detectionStrategy={'contentType'}
+        detectionStrategy={'contentTypeHeader'}
         {...props}
       />
     );
@@ -227,7 +227,7 @@ describe('MediaRenderer', () => {
       render(
         <MediaRenderer
           src="https://example.com/media"
-          detectionStrategy={'contentType'}
+          detectionStrategy={'contentTypeHeader'}
         />
       );
       await waitFor(() =>
