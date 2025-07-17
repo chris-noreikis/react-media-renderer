@@ -8,6 +8,8 @@ interface MediaRendererProps extends React.HTMLAttributes<HTMLElement> {
   imageProps?: React.ImgHTMLAttributes<HTMLImageElement>;
   videoProps?: React.VideoHTMLAttributes<HTMLVideoElement>;
   detectionStrategy?: DetectionStrategy;
+  renderImage?: (props: { src: string; imageProps?: React.ImgHTMLAttributes<HTMLImageElement>; [key: string]: any }) => React.ReactNode;
+  renderVideo?: (props: { src: string; videoProps?: React.VideoHTMLAttributes<HTMLVideoElement>; [key: string]: any }) => React.ReactNode;
 }
 
 const MediaRenderer: React.FC<MediaRendererProps> = ({ 
@@ -15,6 +17,8 @@ const MediaRenderer: React.FC<MediaRendererProps> = ({
   imageProps, 
   videoProps, 
   detectionStrategy = DetectionStrategy.fileExtension,
+  renderImage,
+  renderVideo,
   ...props 
 }) => {
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
@@ -29,8 +33,14 @@ const MediaRenderer: React.FC<MediaRendererProps> = ({
   }, [src, detectionStrategy]);
 
   if (mediaType === MediaType.image) {
+    if (renderImage) {
+      return renderImage({ src, imageProps, ...props });
+    }
     return <img src={src} {...props} {...imageProps} />;
   } else if (mediaType === MediaType.video) {
+    if (renderVideo) {
+      return renderVideo({ src, videoProps, ...props });
+    }
     return <video src={src} {...props} {...videoProps} />;
   }
   return null;
