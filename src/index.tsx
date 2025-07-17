@@ -12,13 +12,9 @@ export enum MediaType {
 const MediaRenderer: React.FC<MediaRendererProps> = ({src}) => {
     const [mediaType, setMediaType] = useState<MediaType | null>(null);
 
-    const checkMediaAvailability = async () => {
-        try {
-            const response = await fetch(src, {method: 'HEAD'});
-            console.log('HEAD response:', response.headers.get('Content-Type'));
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+    const fetchContentType = async () => {
+        const response = await fetch(src, {method: 'HEAD'});
+        if (response.ok) {
             const contentType = response.headers.get('Content-Type');
             if (contentType?.startsWith('image/')) {
                 setMediaType(MediaType.image);
@@ -27,17 +23,20 @@ const MediaRenderer: React.FC<MediaRendererProps> = ({src}) => {
             } else {
                 console.error('Unsupported media type:', contentType);
             }
-        } catch (err) {
-            console.error(`Failed to load mediaType ${src}`);
         }
     };
 
     useEffect(() => {
-        checkMediaAvailability();
+        fetchContentType();
     }, [src]);
 
 
-    return mediaType === MediaType.image && <img src={src}/>
+    if (mediaType === MediaType.image) {
+        return <img src={src}/>;
+    } else if (mediaType === MediaType.video) {
+        return <video src={src} controls/>;
+    }
+    return null;
 };
 
 export default MediaRenderer;
