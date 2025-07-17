@@ -10,7 +10,7 @@ function App() {
         
         <h3>Image Example</h3>
         <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '4px', marginBottom: '10px' }}>
-            <MediaRenderer src="https://picsum.photos/300/200"/>
+            <MediaRenderer src="https://placehold.co/300x200"/>
         </div>
 
         <h3>Video Example</h3>
