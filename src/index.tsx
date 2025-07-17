@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { detectMediaType, DetectionStrategy } from './detectionStrategies';
-
-export { DetectionStrategy } from './detectionStrategies';
+import { MediaType } from './types';
 
 interface MediaRendererProps extends React.HTMLAttributes<HTMLElement> {
   src: string;
@@ -16,7 +15,7 @@ const MediaRenderer: React.FC<MediaRendererProps> = ({
   src, 
   imageProps, 
   videoProps, 
-  detectionStrategy = DetectionStrategy.fileExtension,
+  detectionStrategy = 'fileExtension',
   renderImage,
   renderVideo,
   ...props 

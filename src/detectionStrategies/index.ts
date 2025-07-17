@@ -2,15 +2,13 @@ import {getMediaTypeFromExtension} from './fileExtension';
 import { DetectionStrategy, MediaType } from '../types';
 import {getMediaTypeFromContentType} from "./contentType";
 
-export {DetectionStrategy, MediaType};
-
 const getMediaTypeByMethod = async (
     src: string,
     detectionStrategy: DetectionStrategy
 ): Promise<MediaType | null> => {
-    if (detectionStrategy === DetectionStrategy.fileExtension) {
+    if (detectionStrategy === 'fileExtension') {
         return getMediaTypeFromExtension(src);
-    } else if (detectionStrategy === DetectionStrategy.contentType) {
+    } else if (detectionStrategy === 'contentType') {
         return getMediaTypeFromContentType(src);
     } else {
         throw new Error(`Unknown detection method: ${detectionStrategy}`);

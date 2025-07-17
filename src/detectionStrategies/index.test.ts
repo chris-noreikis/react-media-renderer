@@ -1,5 +1,5 @@
-import { detectMediaType, MediaType } from './index';
-import { DetectionStrategy } from '../types';
+import { detectMediaType } from './index';
+import { DetectionStrategy, MediaType } from '../types';
 import { getMediaTypeFromExtension } from './fileExtension';
 import { getMediaTypeFromContentType } from './contentType';
 
@@ -30,7 +30,7 @@ describe('detectMediaType', () => {
 
     const result = await detectMediaType(
       'https://example.com/image.jpg',
-      DetectionStrategy.fileExtension
+      "fileExtension" as DetectionStrategy
     );
 
     expect(getMediaTypeFromExtension).toHaveBeenCalledWith(
@@ -46,7 +46,7 @@ describe('detectMediaType', () => {
 
     const result = await detectMediaType(
       'https://example.com/media',
-      DetectionStrategy.contentType
+      "contentType"
     );
 
     expect(getMediaTypeFromContentType).toHaveBeenCalledWith(

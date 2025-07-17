@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import MediaRenderer, { DetectionStrategy } from './index';
+import MediaRenderer from './index';
 
 describe('MediaRenderer', () => {
   type SetupArgs = {
@@ -22,7 +22,7 @@ describe('MediaRenderer', () => {
     render(
       <MediaRenderer
         src={src}
-        detectionStrategy={DetectionStrategy.contentType}
+        detectionStrategy={'contentType'}
         {...props}
       />
     );
@@ -95,11 +95,11 @@ describe('MediaRenderer', () => {
       });
 
       it('should pass imageProps and other props to renderImage', async () => {
-        expect(renderImage).toHaveBeenCalledWith({
+        waitFor(() => expect(renderImage).toHaveBeenCalledWith({
           src: imageSrc,
           imageProps,
           ...testProps,
-        });
+        }));
       });
     });
   });
@@ -227,7 +227,7 @@ describe('MediaRenderer', () => {
       render(
         <MediaRenderer
           src="https://example.com/media"
-          detectionStrategy={DetectionStrategy.contentType}
+          detectionStrategy={'contentType'}
         />
       );
       await waitFor(() =>
@@ -240,7 +240,7 @@ describe('MediaRenderer', () => {
       render(
         <MediaRenderer
           src={src}
-          detectionStrategy={DetectionStrategy.fileExtension}
+          detectionStrategy={'fileExtension'}
         />
       );
       expect(await screen.findByRole('img')).toHaveProperty('src', src);
@@ -251,7 +251,7 @@ describe('MediaRenderer', () => {
       render(
         <MediaRenderer
           src={src}
-          detectionStrategy={DetectionStrategy.fileExtension}
+          detectionStrategy={'fileExtension'}
         />
       );
       await waitFor(() =>

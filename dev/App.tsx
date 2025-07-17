@@ -21,6 +21,7 @@ function App() {
             src="https://placehold.co/300x200"
             style={{ border: '2px solid #007bff', borderRadius: '8px' }}
             className="demo-image"
+            detectionStrategy="contentType"
             imageProps={{
               alt: "Placeholder image with imageProps",
               loading: "lazy",
