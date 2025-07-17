@@ -1,4 +1,5 @@
-import { getMediaTypeFromExtension, MediaType } from './fileExtension';
+import { getMediaTypeFromExtension } from './fileExtension';
+import { MediaType } from '../types';
 
 describe('getMediaTypeFromExtension', () => {
   it.each(['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.bmp', '.ico'])(

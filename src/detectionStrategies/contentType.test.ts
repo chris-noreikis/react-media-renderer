@@ -1,6 +1,7 @@
 import { getMediaTypeFromContentType } from './contentType';
 
-import { MediaType } from './fileExtension';
+
+import { MediaType } from '../types';
 
 global.fetch = jest.fn();
 

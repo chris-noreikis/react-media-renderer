@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { detectMediaType, DetectionStrategy, MediaType } from './detectionStrategies';
+import { detectMediaType, DetectionStrategy } from './detectionStrategies';
 
-export { DetectionStrategy, MediaType } from './detectionStrategies';
+export { DetectionStrategy } from './detectionStrategies';
 
 interface MediaRendererProps extends React.HTMLAttributes<HTMLElement> {
   src: string;
@@ -47,3 +47,4 @@ const MediaRenderer: React.FC<MediaRendererProps> = ({
 };
 
 export default MediaRenderer;
+export { MediaType } from './types';

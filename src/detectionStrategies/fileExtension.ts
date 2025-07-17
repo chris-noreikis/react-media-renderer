@@ -1,10 +1,25 @@
-export enum MediaType {
-  image = 'image',
-  video = 'video',
-}
+import { MediaType } from '../types';
 
-const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.bmp', '.ico'];
-const videoExtensions = ['.mp4', '.webm', '.ogg', '.avi', '.mov', '.wmv', '.flv', '.mkv'];
+const imageExtensions = [
+  '.jpg',
+  '.jpeg',
+  '.png',
+  '.gif',
+  '.webp',
+  '.svg',
+  '.bmp',
+  '.ico',
+];
+const videoExtensions = [
+  '.mp4',
+  '.webm',
+  '.ogg',
+  '.avi',
+  '.mov',
+  '.wmv',
+  '.flv',
+  '.mkv',
+];
 
 export const getMediaTypeFromExtension = (src: string): MediaType | null => {
   const url = new URL(src);

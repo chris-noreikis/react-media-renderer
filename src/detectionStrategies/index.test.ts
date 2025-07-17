@@ -1,5 +1,4 @@
-import { detectMediaType } from './index';
-import { MediaType } from './fileExtension';
+import { detectMediaType, MediaType } from './index';
 import { DetectionStrategy } from '../types';
 import { getMediaTypeFromExtension } from './fileExtension';
 import { getMediaTypeFromContentType } from './contentType';

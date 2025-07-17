@@ -1,4 +1,4 @@
-import { MediaType } from './fileExtension';
+import { MediaType } from '../types';
 
 export const getMediaTypeFromContentType = async (
   src: string
