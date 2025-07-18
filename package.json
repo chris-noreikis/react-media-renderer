@@ -1,7 +1,19 @@
 {
   "name": "react-media-renderer",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.1",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -32,7 +44,8 @@
     "react-dom": "^19.1.0",
     "ts-jest": "^29.1.1",
     "typescript": "^5.8.3",
-    "vite": "^5.1.4"
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^4.5.4"
   },
   "peerDependencies": {
     "react": "^19.1.0",
