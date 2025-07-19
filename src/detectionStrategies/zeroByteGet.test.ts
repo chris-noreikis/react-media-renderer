@@ -1,8 +1,5 @@
-import { getMediaTypeFromContentType } from './contentType';
-
-
 import { MediaType } from '../types';
-import { getMediaTypeFromZeroByteGet } from './zeroByteGet';
+import { zeroByteGet } from './zeroByteGet';
 
 global.fetch = jest.fn();
 
@@ -29,7 +26,7 @@ describe('zeroByteGet', () => {
         },
       });
     }
-    return getMediaTypeFromZeroByteGet(url);
+    return zeroByteGet(url);
   };
 
   beforeEach(() => {

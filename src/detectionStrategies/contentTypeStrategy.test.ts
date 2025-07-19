@@ -1,5 +1,4 @@
-import { getMediaTypeFromContentType } from './contentType';
-
+import { contentTypeStrategy } from './contentTypeStrategy';
 
 import { MediaType } from '../types';
 
@@ -28,7 +27,7 @@ describe('getMediaTypeFromContentType', () => {
         },
       });
     }
-    return getMediaTypeFromContentType(url);
+    return contentTypeStrategy(url);
   };
 
   beforeEach(() => {

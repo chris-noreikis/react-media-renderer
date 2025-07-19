@@ -1,8 +1,8 @@
 import { detectMediaType } from './index';
 import { DetectionStrategy, MediaType } from '../types';
 import { getMediaTypeFromExtension } from './fileExtension';
-import { getMediaTypeFromContentType } from './contentType';
-import { getMediaTypeFromZeroByteGet } from './zeroByteGet';
+import { contentTypeStrategy } from './contentTypeStrategy';
+import { zeroByteGet } from './zeroByteGet';
 
 jest.mock('./fileExtension', () => ({
   MediaType: {
@@ -12,12 +12,12 @@ jest.mock('./fileExtension', () => ({
   getMediaTypeFromExtension: jest.fn(),
 }));
 
-jest.mock('./contentType', () => ({
-  getMediaTypeFromContentType: jest.fn(),
+jest.mock('./contentTypeStrategy', () => ({
+  contentTypeStrategy: jest.fn(),
 }));
 
 jest.mock('./zeroByteGet', () => ({
-  getMediaTypeFromZeroByteGet: jest.fn(),
+  zeroByteGet: jest.fn(),
 }));
 
 describe('detectMediaType', () => {
@@ -45,7 +45,7 @@ describe('detectMediaType', () => {
   });
 
   it('should call getMediaTypeFromContentType and return result', async () => {
-    (getMediaTypeFromContentType as jest.Mock).mockResolvedValue(
+    (contentTypeStrategy as jest.Mock).mockResolvedValue(
       MediaType.image
     );
 
@@ -54,14 +54,14 @@ describe('detectMediaType', () => {
       "contentTypeHeader"
     );
 
-    expect(getMediaTypeFromContentType).toHaveBeenCalledWith(
+    expect(contentTypeStrategy).toHaveBeenCalledWith(
       'https://example.com/media'
     );
     expect(result).toBe(MediaType.image);
   });
 
   it('should call getMediaTypeFromZeroByteGet and return result', async () => {
-    (getMediaTypeFromZeroByteGet as jest.Mock).mockResolvedValue(
+    (zeroByteGet as jest.Mock).mockResolvedValue(
       MediaType.video
     );
 
@@ -70,7 +70,7 @@ describe('detectMediaType', () => {
       "zeroByteGet"
     );
 
-    expect(getMediaTypeFromZeroByteGet).toHaveBeenCalledWith(
+    expect(zeroByteGet).toHaveBeenCalledWith(
       'https://example.com/media'
     );
     expect(result).toBe(MediaType.video);

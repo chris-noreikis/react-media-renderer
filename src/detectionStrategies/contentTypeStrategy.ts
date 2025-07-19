@@ -1,7 +1,7 @@
 import { MediaType } from '../types';
 import { getMediaTypeFromContentType } from '../utils';
 
-export const getMediaTypeFromContentType = async (
+export const contentTypeStrategy = async (
   src: string
 ): Promise<MediaType | null> => {
   try {
