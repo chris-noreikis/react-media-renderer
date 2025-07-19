@@ -1,6 +1,7 @@
 import {getMediaTypeFromExtension} from './fileExtension';
 import { DetectionStrategy, MediaType } from '../types';
 import {getMediaTypeFromContentType} from "./contentType";
+import {getMediaTypeFromZeroByteGet} from "./zeroByteGet";
 
 const getMediaTypeByMethod = async (
     src: string,
@@ -10,6 +11,8 @@ const getMediaTypeByMethod = async (
         return getMediaTypeFromExtension(src);
     } else if (detectionStrategy === 'contentTypeHeader') {
         return getMediaTypeFromContentType(src);
+    } else if (detectionStrategy === 'zeroByteGet') {
+        return getMediaTypeFromZeroByteGet(src);
     } else {
         throw new Error(`Unknown detection method: ${detectionStrategy}`);
     }

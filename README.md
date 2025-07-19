@@ -25,7 +25,13 @@ export default App;
 
 ### Detection Strategy
 
-Choose how to detect whether src is an image or a video.  The default method is to inspect the `fileExtension`.  Use `contentTypeHeader` to perform a `HEAD` request to the media server and inspect the Content-Type HTTP Header.  Your media server must support HEAD requests.
+Choose how to detect whether src is an image or a video. Each strategy has different trade-offs in terms of performance, reliability, and server requirements.
+
+| Strategy | Method | Performance | Reliability | Server Requirements | When to Use |
+|----------|--------|-------------|-------------|-------------------|-------------|
+| `fileExtension` (default) | Parses URL file extension | ⚡ Fastest (no network request) | ⚠️ Medium (relies on accurate file extensions) | ✅ None | When URLs have reliable file extensions and you want maximum performance |
+| `contentTypeHeader` | HEAD request to inspect Content-Type header | 🚀 Fast (minimal data transfer) | ✅ High (server-provided content type) | 📋 Must support HEAD requests | When server supports HEAD requests and you need accurate content type detection |
+| `zeroByteGet` | GET request with `Range: bytes=0-0` | 🐌 Slower (GET request overhead) | ✅ High (server-provided content type) | 📋 Must support Range requests | When server doesn't support HEAD requests but supports Range requests |
 
 ```jsx
 import MediaRenderer from 'react-media-renderer';

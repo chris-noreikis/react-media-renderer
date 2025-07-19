@@ -2,6 +2,7 @@ import { detectMediaType } from './index';
 import { DetectionStrategy, MediaType } from '../types';
 import { getMediaTypeFromExtension } from './fileExtension';
 import { getMediaTypeFromContentType } from './contentType';
+import { getMediaTypeFromZeroByteGet } from './zeroByteGet';
 
 jest.mock('./fileExtension', () => ({
   MediaType: {
@@ -13,6 +14,10 @@ jest.mock('./fileExtension', () => ({
 
 jest.mock('./contentType', () => ({
   getMediaTypeFromContentType: jest.fn(),
+}));
+
+jest.mock('./zeroByteGet', () => ({
+  getMediaTypeFromZeroByteGet: jest.fn(),
 }));
 
 describe('detectMediaType', () => {
@@ -53,6 +58,22 @@ describe('detectMediaType', () => {
       'https://example.com/media'
     );
     expect(result).toBe(MediaType.image);
+  });
+
+  it('should call getMediaTypeFromZeroByteGet and return result', async () => {
+    (getMediaTypeFromZeroByteGet as jest.Mock).mockResolvedValue(
+      MediaType.video
+    );
+
+    const result = await detectMediaType(
+      'https://example.com/media',
+      "zeroByteGet"
+    );
+
+    expect(getMediaTypeFromZeroByteGet).toHaveBeenCalledWith(
+      'https://example.com/media'
+    );
+    expect(result).toBe(MediaType.video);
   });
 
   it('should throw error for unknown detection method', async () => {

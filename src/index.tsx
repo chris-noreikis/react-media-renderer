@@ -17,7 +17,7 @@ interface MediaRendererProps extends React.HTMLAttributes<HTMLElement> {
  * @param {string} src - The source URL of the media file to be rendered
  * @param {React.ImgHTMLAttributes<HTMLImageElement>} imageProps - Additional props to pass to the img element when rendering images
  * @param {React.VideoHTMLAttributes<HTMLVideoElement>} videoProps - Additional props to pass to the img element when rendering videos
- * @param {DetectionStrategy} detectionStrategy - Choose how to detect whether src is an image or video.  One of {fileExtension, contentType}.  Defaults to 'fileExtension'.
+ * @param {DetectionStrategy} detectionStrategy - Choose how to detect whether src is an image or video.  One of {fileExtension, contentType, zeroByteGet}.  Defaults to 'fileExtension'.
  * @param {function} renderImage - Custom render function for images. Receives {@link MediaRendererProps}
  * @param {function} renderVideo - Custom render function for videos. Receives {@link MediaRendererProps}
  * @param {React.HTMLAttributes<HTMLElement>} props - Arbitrary HTMLElement props spread to underlying element
